@@ -23,9 +23,9 @@ func TestFetch(t *testing.T) {
 
 // testFetch
 func testFetch(t *testing.T) {
-	endPoint := "https://fakerapi.it/api/v1/books?_quantity=1"                                     // string
-	method := "GET"                                                                                // string
-	headers := [][]string{[]string{"Accept", "*/*"}, []string{"Content-Type", "application/json"}} // [][]string
+	endPoint := "https://fakerapi.it/api/v1/books?_quantity=1"                     // string
+	method := "GET"                                                                // string
+	headers := [][]string{{"Accept", "*/*"}, {"Content-Type", "application/json"}} // [][]string
 	f, err := NewFetch(endPoint, method, headers, nil)
 	if err != nil {
 		t.Errorf("Error Initializing New Fetch: %v", err)

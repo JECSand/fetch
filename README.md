@@ -2,7 +2,7 @@
 
 A pre-made Golang module for making easy async REST calls.
 
-[![Build Status](https://travis-ci.org/JECSand/fetch.svg?branch=master)](https://travis-ci.org/JECSand/fetch)
+[![Build Status](https://travis-ci.org/JECSand/fetch.svg?branch=main)](https://travis-ci.org/JECSand/fetch)
 [![Go Report Card](https://goreportcard.com/badge/github.com/JECSand/fetch)](https://goreportcard.com/report/github.com/JECSand/fetch)
 
 * Author(s): John Connor Sanders

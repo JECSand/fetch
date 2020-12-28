@@ -19,7 +19,7 @@ import (
 	"net/url"
 )
 
-// Request
+// A Request ...
 type Request struct {
 	Headers [][]string
 	Body    []byte
@@ -34,7 +34,7 @@ func (re *Request) defaultHeaders() {
 	re.Headers = headers
 }
 
-// Fetch
+// A Fetch ...
 type Fetch struct {
 	URL     string
 	Req     Request
@@ -42,7 +42,7 @@ type Fetch struct {
 	Promise *Promise
 }
 
-// NewFetch
+// NewFetch ...
 func NewFetch(url string, method string, headers [][]string, body []byte) (*Fetch, error) {
 	if url == "" {
 		return &Fetch{}, errors.New("Error: URL String Required")

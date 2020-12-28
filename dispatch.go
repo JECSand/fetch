@@ -16,7 +16,7 @@ import (
 	"net/http"
 )
 
-// Promise struct to store executing thread
+// Promise struct to store executing thread ...
 type Promise struct {
 	Channel     chan *http.Response
 	httpRequest *http.Request

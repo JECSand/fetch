@@ -41,14 +41,14 @@ func main() {
 	endPoint2 := "https://fakerapi.it/api/v1/companies?_quantity=5" // string
 	method2 := "GET" // string
 	headers2 := [][]string{[]string{"Accept", "*/*"}, []string{"Content-Type", "application/json"}} // [][]string
-	//*In cases where the Body parameter is not nil, it can be setup as follows:
+	//**In cases where the Body parameter is not nil, it can be setup as follows:
 	//body := []byte(`{"username":"test","password":"password123"}`)
 	
 	// 2: Initialize a new Fetch Structure with parameters.
 	f, err := fetch.NewFetch(endPoint, method, headers, nil)
 	if err != nil {
 		log.Fatalf("Failed to initialize new Fetch Struct 1: %v", err)
-    }
+	}
 	log.Printf("Successfully initialized new Fetch Struct 1: %v", f)
 	f2, err2 := fetch.NewFetch(endPoint2, method2, headers2, nil)
 	if err2 != nil {
@@ -57,15 +57,15 @@ func main() {
 	log.Printf("Successfully initialized new Fetch Struct 2: ", f2)
 	
 	// 3: Execute Fetch structs' Async Requests and store structs in a Slice of Fetch.
-	f.Execute("") // *Optionally you can use "discard" instead of "" to throw the http response away
-	f2.Execute("") // *Ditto
+	f.Execute("") // **Optionally you can use "discard" instead of "" to throw the http response away.
+	f2.Execute("") // **Ditto from above.
 	fProcesses := []*fetch.Fetch{f, f2}
 	
-	// 4: Resolve Fetch structs' as needed
+	// 4: Resolve Fetch structs' as needed.
 	fProcesses[0].Resolve()
 	fProcesses[1].Resolve()
 	
-	// 5: Access *http.Response in Fetch structs'
+	// 5: Access *http.Response in Fetch structs.
 	log.Printf("Successfully resolved Fetch Struct 1: ", f.Res)
 	log.Printf("Successfully resolved Fetch Struct 2: ", f2.Res)
 }

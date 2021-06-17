@@ -1,8 +1,8 @@
 /*
 Author: John Connor Sanders
 License: Apache Version 2.0
-Version: 0.0.2
-Released: 01/29/2021
+Version: 0.0.3
+Released: 06/17/2021
 Copyright (c) 2021 John Connor Sanders
 
 -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
@@ -19,6 +19,7 @@ import (
 	"mime/multipart"
 	"net/http"
 	"net/url"
+	"time"
 )
 
 // A Request ...
@@ -42,6 +43,7 @@ type Fetch struct {
 	Req     *Request
 	Res     *http.Response
 	Promise *Promise
+	Error   error
 }
 
 // NewFetch ...
@@ -51,7 +53,7 @@ func NewFetch(url string, method string, headers [][]string, body io.Reader) (*F
 	} else if method == "" {
 		return &Fetch{}, errors.New("error: Method String Required")
 	}
-	d := Fetch{URL: url}
+	d := Fetch{URL: url, Error: nil}
 	d.Req = &Request{Headers: headers, Type: method, Body: body}
 	if len(headers) == 0 {
 		d.Req.defaultHeaders()
@@ -114,8 +116,34 @@ func (d *Fetch) Execute(resType string) error {
 	return nil
 }
 
+// recursiveResolve
+func (d *Fetch) recursiveResolve(attempt int) {
+	if attempt < 4 {
+		err := <-d.Promise.Error
+		if err != nil {
+			time.Sleep(5 * time.Second)
+			d.Execute("")
+			time.Sleep(10 * time.Second)
+			attempt = attempt + 1
+			d.recursiveResolve(attempt)
+		} else {
+			resp := <-d.Promise.Channel
+			if resp == nil {
+				time.Sleep(5 * time.Second)
+				d.Execute("")
+				time.Sleep(10 * time.Second)
+				attempt = attempt + 1
+				d.recursiveResolve(attempt)
+			} else {
+				d.Res = resp
+			}
+		}
+	} else {
+		d.Res = nil
+	}
+}
+
 // Resolve Request
 func (d *Fetch) Resolve() {
-	resp := <-d.Promise.Channel
-	d.Res = resp
+	d.recursiveResolve(0)
 }

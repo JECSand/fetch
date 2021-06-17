@@ -7,8 +7,8 @@ A pre-made Golang module for making easy async REST calls.
 
 * Author(s): John Connor Sanders
 * License: Apache Version 2.0
-* Version Release Date: 01/29/2021
-* Current Version: 0.0.2
+* Version Release Date: 06/17/2021
+* Current Version: 0.0.3
 
 ## License
 * Copyright 2021 John Connor Sanders
